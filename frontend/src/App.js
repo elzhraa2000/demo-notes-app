@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import Routes from "./Routes";
@@ -66,9 +67,13 @@ function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
-          <Routes />
-        </AppContext.Provider>
+        <ErrorBoundary>
+          <AppContext.Provider
+            value={{ isAuthenticated, userHasAuthenticated }}
+          >
+            <Routes />
+          </AppContext.Provider>
+        </ErrorBoundary>
       </div>
     )
   );
